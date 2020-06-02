@@ -212,36 +212,24 @@ def main(argv):
 		if response_code==302 or response_code==401:
 			if isUser==True:
 				log("[E] failed while deleting user '" + line + "'. Please verify the parameters","error")
-			elif isGroup==True:
-				log("[E] failed while deleting group '" + line + "'. Please verify the parameters","error")
 			buffer.close()
 			header.close()
 			break
-		elif response_code==204:
+		elif response_code==200:
 			if isUser==True:
 				log("[I] Deleted user : "+line,"info")
-			elif isGroup==True:
-				log("[I] Deleted group : "+line,"info")
 			processedRows=processedRows+1
 		elif response_code==404:
 			if isUser==True:
 				log("[E] failed while deleting user '" + line + "'. Please verify the parameters","error")
-			elif isGroup==True:
-				log("[E] failed while deleting group '" + line + "'. Please verify the parameters","error")
 		elif response_code==400:
 			if isUser==True:
 				log("[I] User not found : "+line,"info")
-			elif isGroup==True:
-				log("[I] Group not found : "+line,"info")
 	f.close()
 	if processedRows==0:
 		if isUser==True:
 			log("[I] No valid user found to delete!","info")
-		elif isGroup==True:
-			log("[I] No valid group found to delete!","info")
 	else:
 		if isUser==True:
 			log("[I] Number of user deleted : "+str(processedRows),"info")
-		elif isGroup==True:
-			log("[I] Number of group deleted : "+str(processedRows),"info")
 main(sys.argv)
